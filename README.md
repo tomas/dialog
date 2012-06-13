@@ -28,7 +28,7 @@ To show a warning dialog:
 dialog.warn(msg, title, callback);
 ```
 
-Title and callback are optional. Default title shown is "Important".
+Both `title` and `callback` are optional. Default title shown is "Important".
 
 Credits
 -------
