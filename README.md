@@ -28,11 +28,12 @@ To show a warning dialog:
 dialog.warn(msg, title, callback);
 ```
 
-Title and callback are optional. Default title shown is "Important".
+Both `title` and `callback` are optional. Default title shown is "Important".
 
 Credits
 -------
-Written by Tomás Pollak.
+Written by Tomás Pollak, except for the MsgBox script which was written by 
+[StackOverflow user boflynn](http://stackoverflow.com/a/774197).
 
 Copyright
 ---------
