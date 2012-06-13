@@ -13,8 +13,15 @@ var Dialog = module.exports = {
 
 	show: function(type, str, title, callback){
 
+		if (typeof title == 'function') {
+			callback = title;
+			title = null;
+		}
+
 		var cmd, os_name = process.platform, title = title ? title : 'Important';
-		var str = str.replace(/"/g, '\\"');
+
+		// remove or replace unsupported chars.
+		var str = str.replace(/(`|<|>|\|)/g, '').replace(/"/g, '\\"');
 
 		if (os_name == 'linux'){
 
