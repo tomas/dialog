@@ -1,0 +1,18 @@
+{
+  "author": "Tomás Pollak <tomas@forkhq.com> (http://forkhq.com)",
+  "name": "dialog",
+  "description": "Show alert dialogs using Node.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/tomas/dialog"
+  },
+  "bin": {
+    "dialog": "./bin/dialog.js"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
