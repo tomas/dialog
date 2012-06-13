@@ -33,7 +33,7 @@ Title and callback are optional. Default title shown is "Important".
 Credits
 -------
 Written by Tomás Pollak, except for the MsgBox script which was written by 
-[StackOverflow user boflynn](http://stackoverflow.com/questions/774175).
+[StackOverflow user boflynn](http://stackoverflow.com/a/774197).
 
 Copyright
 ---------
