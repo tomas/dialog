@@ -14,4 +14,6 @@ var message = process.argv.slice(3).join(' ');
 if (!dialog[type])
 	abort("Unknown message type: " + type);
 else
-	dialog[type](message);
+	dialog[type](message, function(err){
+		if (err) console.log(err.message.trim());
+	});
