@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/tomas/dialog.png)](http://travis-ci.org/tomas/dialog)
 Dialog
 ======
 
