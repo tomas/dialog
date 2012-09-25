@@ -23,7 +23,7 @@ dialog.info(msg, title, callback);
 
 // example, setting title
 dialog.info('Ground control to major Tom.', 'My app', function(err){
-	if(!err) console.log('User clicked OK');
+	if (!err) console.log('User clicked OK');
 })
 ```
 
@@ -34,7 +34,7 @@ dialog.warn(msg, title, callback);
 
 // example, without setting title
 dialog.warn('This computer will autoterminate itself in 5 seconds.', function(err){
-	if(!err) console.log('User clicked OK');
+	if (!err) console.log('User clicked OK');
 })
 ```
 
