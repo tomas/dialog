@@ -36,10 +36,10 @@ var Dialog = module.exports = {
     } else if (os_name == 'darwin'){
 
       cmd.push('osascript') && cmd.push('-e');
-      var str = 'tell app \"System Events\" to display dialog';
-      str += '\"' + str + '\" with title \"' + title + '\" buttons "OK"';
-      str += (type == 'warning') ? " with icon 0'" : "'";
-      cmd.push(str);
+      var script = 'tell app \"System Events\" to display dialog ';
+      script += '\"' + str + '\" with title \"' + title + '\" buttons \"OK\"';
+      script += (type == 'warning') ? " with icon 0" : "";
+      cmd.push(script);
 
     } else {
 
