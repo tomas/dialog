@@ -1,5 +1,5 @@
 var join = require('path').join,
-    exec = require('child_process').exec;
+    spawn = require('child_process').spawn;
 
 var Dialog = module.exports = {
 
@@ -29,8 +29,8 @@ var Dialog = module.exports = {
 
       cmd.push('zenity');
       cmd.push('--' + type);
-      cmd.push('--text') && cmd.push('\"' + str + '\"');
-      cmd.push('--title') && cmd.push('\"' + title + '\"');
+      cmd.push('--text') && cmd.push(str);
+      cmd.push('--title') && cmd.push(title);
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
     } else if (os_name == 'darwin'){
@@ -55,7 +55,9 @@ var Dialog = module.exports = {
   },
 
   run: function(cmd, cb){
-    exec(cmd.join(' '), cb);
+    var bin = cmd[0];
+    var args = cmd.splice(1);
+    spawn(bin, args);
   }
 
 }
