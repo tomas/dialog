@@ -46,7 +46,7 @@ var Dialog = module.exports = {
       // msgbox.vbs script from http://stackoverflow.com/questions/774175
       cmd.push('cscript');
       cmd.push(join(__dirname, 'msgbox.vbs'));
-      cmd.push('"' + [title, str].join('" "') + '"');
+      cmd.push(title) && cmd.push(str);
 
     }
 
