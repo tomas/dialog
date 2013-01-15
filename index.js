@@ -1,5 +1,5 @@
 /*
- By Tomas Pollak <tomas@forkhq.com>. 
+ By Tomas Pollak <tomas@forkhq.com>.
  MIT License.
 */
 
@@ -17,6 +17,8 @@ var Dialog = module.exports = {
   },
 
   show: function(type, str, title, callback){
+    if (!str || str.trim() == '')
+      throw('Empty or no string passed!');
 
     if (typeof title == 'function') {
       callback = title;
@@ -60,9 +62,23 @@ var Dialog = module.exports = {
   },
 
   run: function(cmd, cb){
-    var bin = cmd[0];
-    var args = cmd.splice(1);
-    spawn(bin, args);
+    var bin = cmd[0],
+        args = cmd.splice(1),
+        stdout = '', stderr = '';
+
+    var child = spawn(bin, args);
+
+    child.stdout.on('data', function(data){
+      stdout += data.toString();
+    })
+
+    child.stderr.on('data', function(data){
+      stderr += data.toString();
+    })
+
+    child.on('exit', function(code){
+      cb && cb(code, stdout, stderr);
+    })
   }
 
 }
