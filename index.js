@@ -1,3 +1,8 @@
+/*
+ By Tomas Pollak <tomas@forkhq.com>. 
+ MIT License.
+*/
+
 var join = require('path').join,
     spawn = require('child_process').spawn;
 
@@ -23,9 +28,9 @@ var Dialog = module.exports = {
         title = title ? title : 'Important';
 
     // remove or replace unsupported chars.
-    var str = str.replace(/(`|<|>|\|)/g, '').replace(/"/g, '\\"');
+    var str = str.replace(/(`|<|>|\|)/g, '').replace(/"/g, '\\"').replace(/\$/g, '\\$');
 
-    if (os_name == 'linux'){
+    if (os_name == 'linux') {
 
       cmd.push('zenity');
       cmd.push('--' + type);
@@ -33,7 +38,7 @@ var Dialog = module.exports = {
       cmd.push('--title') && cmd.push(title);
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
-    } else if (os_name == 'darwin'){
+    } else if (os_name == 'darwin') {
 
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
