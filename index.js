@@ -29,8 +29,7 @@ var Dialog = module.exports = {
         os_name = process.platform,
         title = title ? title : 'Important';
 
-    // remove or replace unsupported chars.
-    var str = str.replace(/(`|<|>|\|)/g, '').replace(/"/g, '\\"').replace(/\$/g, '\\$');
+    var str = (str+'').replace(/([.?*+^$[\]\\(){}<>|`-])/g, "\$1");
 
     if (os_name == 'linux') {
 
@@ -41,7 +40,8 @@ var Dialog = module.exports = {
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
     } else if (os_name == 'darwin') {
-
+      
+      str = str.replace(/"/g, "'"); // double quotes to single quotes
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
       script += '\"' + str + '\" with title \"' + title + '\" buttons \"OK\"';
