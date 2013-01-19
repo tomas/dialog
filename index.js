@@ -33,6 +33,7 @@ var Dialog = module.exports = {
 
     if (os_name == 'linux') {
 
+      str = str.replace(/[<>]/g, '');
       cmd.push('zenity');
       cmd.push('--' + type);
       cmd.push('--text') && cmd.push(str);
@@ -40,7 +41,7 @@ var Dialog = module.exports = {
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
     } else if (os_name == 'darwin') {
-      
+
       str = str.replace(/"/g, "'"); // double quotes to single quotes
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
