@@ -3,33 +3,33 @@
  MIT License.
 */
 
-var join = require('path').join,
+var join  = require('path').join,
     spawn = require('child_process').spawn;
 
 var Dialog = module.exports = {
 
-  info: function(str, title, callback){
+  info: function(str, title, callback) {
     this.show('info', str, title, callback);
   },
 
-  warn: function(str, title, callback){
+  warn: function(str, title, callback) {
     this.show('warning', str, title, callback);
   },
 
-  show: function(type, str, title, callback){
+  show: function(type, str, title, callback) {
     if (!str || str.trim() == '')
-      throw('Empty or no string passed!');
+      throw new Error('Empty or no string passed!');
 
     if (typeof title == 'function') {
       callback = title;
       title = null;
     }
 
-    var cmd = [],
+    var cmd     = [],
         os_name = process.platform,
-        title = title ? title : 'Important';
+        title   = title ? title : 'Important';
 
-    var str = (str+'').replace(/([.?*+^$[\]\\(){}<>|`-])/g, "\$1");
+    var str = (str + '').replace(/([.?*+^$[\]\\(){}<>|`-])/g, "\$1");
 
     if (os_name == 'linux') {
 
@@ -62,22 +62,23 @@ var Dialog = module.exports = {
 
   },
 
-  run: function(cmd, cb){
-    var bin = cmd[0],
-        args = cmd.splice(1),
-        stdout = '', stderr = '';
+  run: function(cmd, cb) {
+    var bin    = cmd[0],
+        args   = cmd.splice(1),
+        stdout = '', 
+        stderr = '';
 
     var child = spawn(bin, args);
 
-    child.stdout.on('data', function(data){
+    child.stdout.on('data', function(data) {
       stdout += data.toString();
     })
 
-    child.stderr.on('data', function(data){
+    child.stderr.on('data', function(data) {
       stderr += data.toString();
     })
 
-    child.on('exit', function(code){
+    child.on('exit', function(code) {
       cb && cb(code, stdout, stderr);
     })
   }
