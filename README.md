@@ -23,15 +23,8 @@ dialog.info(msg, title, callback);
 
 // example, setting title
 dialog.info('Ground control to major Tom.', 'My app', function(err){
-    if (code == 22) {
-      console.log('User clicked Cancel');
-    } else if (code == 11) {
-        console.log('User clicked Ok');
-    } else if (code == 0) {
-        console.log('Script executed without error, no user input')
-    } else {
-        console.log('Error')
-    }})
+	if (!err) console.log('User clicked OK');
+})
 ```
 
 To show a warning dialog:
@@ -41,6 +34,17 @@ dialog.warn(msg, title, callback);
 
 // example, without setting title
 dialog.warn('This computer will autoterminate itself in 5 seconds.', function(err){
+	if (!err) console.log('User clicked OK');
+})
+```
+
+Both `title` and `callback` are optional. Default title shown is "Important".
+
+
+In windows, waringn dialog and generic info dialogs are the same, and you check for errors like so:
+
+``` js
+dialog.info('Ground control to major Tom.', 'My app', function(err){d
     if (code == 22) {
       console.log('User clicked Cancel');
     } else if (code == 11) {
@@ -52,8 +56,6 @@ dialog.warn('This computer will autoterminate itself in 5 seconds.', function(er
     }
 })
 ```
-
-Both `title` and `callback` are optional. Default title shown is "Important".
 
 Credits
 -------
