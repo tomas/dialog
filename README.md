@@ -40,6 +40,23 @@ dialog.warn('This computer will autoterminate itself in 5 seconds.', function(er
 
 Both `title` and `callback` are optional. Default title shown is "Important".
 
+
+In Windows, warning dialogs and generic info dialogs are the same, and you check for errors like so:
+
+``` js
+dialog.info('Ground control to major Tom.', 'My app', function(err){d
+    if (code == 22) {
+      console.log('User clicked Cancel');
+    } else if (code == 11) {
+        console.log('User clicked Ok');
+    } else if (code == 0) {
+        console.log('Script executed without error, no user input')
+    } else {
+        console.log('Error')
+    }
+})
+```
+
 Credits
 -------
 Written by Tomás Pollak, except for the MsgBox script which was written by
