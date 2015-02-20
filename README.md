@@ -41,7 +41,7 @@ dialog.warn('This computer will autoterminate itself in 5 seconds.', function(er
 Both `title` and `callback` are optional. Default title shown is "Important".
 
 
-In windows, waringn dialog and generic info dialogs are the same, and you check for errors like so:
+In Windows, warning dialogs and generic info dialogs are the same, and you check for errors like so:
 
 ``` js
 dialog.info('Ground control to major Tom.', 'My app', function(err){d
