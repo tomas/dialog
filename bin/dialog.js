@@ -5,7 +5,7 @@ function abort(msg) {
 }
 
 if (!process.argv[3])
-  abort("Usage: show_dialog [info|warn] [message]")
+  abort("Usage: show_dialog [err|info|warn] [message]")
 
 var dialog  = require('./..'),
     type    = process.argv[2],

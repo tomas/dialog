@@ -15,6 +15,11 @@ dialog.info('Hello there');
 
 Usage
 -------
+To show an error dialog:
+
+``` js
+dialog.err(msg, title, callback);
+```
 
 To show a generic info dialog:
 
