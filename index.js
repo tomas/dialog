@@ -8,6 +8,10 @@ var join  = require('path').join,
 
 var Dialog = module.exports = {
 
+  err: function(str, title, callback) {
+    this.show('error', str, title, callback);
+  },
+
   info: function(str, title, callback) {
     this.show('info', str, title, callback);
   },
@@ -41,33 +45,48 @@ var Dialog = module.exports = {
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
     } else if (os_name == 'darwin') {
+      // Set dialog icon
+      switch (type) {
+        case 'error':
+          type = 0;
+          break;
+        case 'info':
+          type = 1;
+          break;
+        case 'warning':
+          type = 2;
+          break;
+        default:
+          type = "";
+      }
 
       str = str.replace(/"/g, "'"); // double quotes to single quotes
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
       script += '\"' + str + '\" with title \"' + title + '\" buttons \"OK\"';
-      script += (type == 'warning') ? " with icon 0" : "";
+      script += " with icon " + type;
       cmd.push(script);
 
     } else {
-      var messageBoxType;
-
-      // Set button argument settings
+      // Set MsgBox icon
       switch (type) {
-        case 'warning':
-          messageBoxType = 16;
+        case 'error':
+          type = 16;
           break;
         case 'info':
-          messageBoxType = 64;
+          type = 64;
+          break;
+        case 'warning':
+          type = 48;
           break;
         default:
-          messageBoxType = 0;
+          type = 0;
       }
 
       // msgbox.vbs script from http://stackoverflow.com/questions/774175
       cmd.push('cscript');
       cmd.push(join(__dirname, 'msgbox.vbs'));
-      cmd.push(str) && cmd.push(messageBoxType) && cmd.push(title);
+      cmd.push(str) && cmd.push(type) && cmd.push(title);
 
     }
 
@@ -78,7 +97,7 @@ var Dialog = module.exports = {
   run: function(cmd, cb) {
     var bin    = cmd[0],
         args   = cmd.splice(1),
-        stdout = '', 
+        stdout = '',
         stderr = '';
 
     var child = spawn(bin, args);
