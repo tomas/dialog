@@ -50,11 +50,24 @@ var Dialog = module.exports = {
       cmd.push(script);
 
     } else {
+      var messageBoxType;
+
+      // Set button argument settings
+      switch (type) {
+        case 'warning':
+          messageBoxType = 16;
+          break;
+        case 'info':
+          messageBoxType = 64;
+          break;
+        default:
+          messageBoxType = 0;
+      }
 
       // msgbox.vbs script from http://stackoverflow.com/questions/774175
       cmd.push('cscript');
       cmd.push(join(__dirname, 'msgbox.vbs'));
-      cmd.push(title) && cmd.push(str);
+      cmd.push(str) && cmd.push(messageBoxType) && cmd.push(title);
 
     }
 
