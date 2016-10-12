@@ -57,14 +57,14 @@ var Dialog = module.exports = {
           type = 2;
           break;
         default:
-          type = "";
+          type = '';
       }
 
       str = str.replace(/"/g, "'"); // double quotes to single quotes
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
       script += '\"' + str + '\" with title \"' + title + '\" buttons \"OK\"';
-      script += " with icon " + type;
+      script += ' with icon ' + type;
       cmd.push(script);
 
     } else {
