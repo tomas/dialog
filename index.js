@@ -35,6 +35,8 @@ var Dialog = module.exports = {
 
     var str = (str + '').replace(/([.?*+^$[\]\\(){}<>|`-])/g, "\$1");
 
+    // return codes for zenity are 0 on "OK" 
+    // and 1 on "No/Cancel" or close window
     if (os_name == 'linux') {
 
       str = str.replace(/[<>]/g, '');
@@ -44,6 +46,8 @@ var Dialog = module.exports = {
       cmd.push('--title') && cmd.push(title);
       if (str.length > 30) cmd.push('--width') && cmd.push('300');
 
+    // return codes in macOS are exactly as in Linux
+    // 0 for 'OK', 1 for 'Cancel'
     } else if (os_name == 'darwin') {
       // Set dialog icon
       switch (type) {
@@ -67,9 +71,20 @@ var Dialog = module.exports = {
       script += ' with icon ' + type;
       cmd.push(script);
 
+    // return codes for Windows (default value minus 1)
+    // defaults in https://www.tutorialspoint.com/vbscript/vbscript_dialog_boxes.htm
+
+    // 0 - vbOK
+    // 1 - vbCancel
+    // 2 - vbAbort
+    // 3 - vbRetry
+    // 4 - vbIgnore
+    // 5 - vbYes
+    // 6 - vbNo
+
     } else {
-      // Set MsgBox icon
-      switch (type) {
+      
+      switch (type) { // Set MsgBox icon
         case 'error':
           type = 16;
           break;

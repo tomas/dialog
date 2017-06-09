@@ -27,8 +27,8 @@ To show a generic info dialog:
 dialog.info(msg, title, callback);
 
 // example, setting title
-dialog.info('Ground control to major Tom.', 'My app', function(err){
-	if (!err) console.log('User clicked OK');
+dialog.info('Ground control to major Tom.', 'My app', function(exitCode) {
+	if (exitCode == 0) console.log('User clicked OK');
 })
 ```
 
@@ -38,10 +38,12 @@ To show a warning dialog:
 dialog.warn(msg, title, callback);
 
 // example, without setting title
-dialog.warn('This computer will autoterminate itself in 5 seconds.', function(err){
-	if (!err) console.log('User clicked OK');
+dialog.warn('This computer will autoterminate itself in 5 seconds.', function(exitCode){
+	if (exitCode == 1) console.log('User closed window');
 })
 ```
+
+`exitCode` indicates whether the user clicked the default (OK) button (value `0`), or if they closed the window or clicked the "No/Cancel" button (value `1`).
 
 Both `title` and `callback` are optional. Default title shown is "Important".
 
