@@ -49,8 +49,8 @@ var Dialog = module.exports = {
     // return codes in macOS are exactly as in Linux
     // 0 for 'OK', 1 for 'Cancel'
     } else if (os_name == 'darwin') {
-      // Set dialog icon
-      switch (type) {
+      
+      switch (type) { // Set dialog icon
         case 'error':
           type = 0;
           break;
@@ -71,19 +71,19 @@ var Dialog = module.exports = {
       script += ' with icon ' + type;
       cmd.push(script);
 
-    // return codes for Windows (default value minus 1)
-    // defaults in https://www.tutorialspoint.com/vbscript/vbscript_dialog_boxes.htm
+    } else { // windows
 
-    // 0 - vbOK
-    // 1 - vbCancel
-    // 2 - vbAbort
-    // 3 - vbRetry
-    // 4 - vbIgnore
-    // 5 - vbYes
-    // 6 - vbNo
+      // return codes for Windows (default value minus 1)
+      // defaults in https://www.tutorialspoint.com/vbscript/vbscript_dialog_boxes.htm
 
-    } else {
-      
+      // 0 - vbOK
+      // 1 - vbCancel
+      // 2 - vbAbort
+      // 3 - vbRetry
+      // 4 - vbIgnore
+      // 5 - vbYes
+      // 6 - vbNo
+     
       switch (type) { // Set MsgBox icon
         case 'error':
           type = 16;
@@ -98,6 +98,8 @@ var Dialog = module.exports = {
           type = 0;
       }
 
+      str = str.replace(/"/g, "'"); // double quotes to single quotes
+     
       // msgbox.vbs script from http://stackoverflow.com/questions/774175
       cmd.push('cscript');
       cmd.push(join(__dirname, 'msgbox.vbs'));
