@@ -111,9 +111,9 @@ var Dialog = module.exports = {
 
   },
 
-  custom: function(str, title, buttons, defaultAnswer, icon, callback) {
+  custom: function(str, title, buttons, icon, callback, defaultAnswer) {
     
-    //defaultAnswer is used to accept text input from user. If it is empty, the dialog will not have an input text field.
+    //defaultAnswer is optional & is used to accept text input from user.
     //buttons is a string with brackets. Example: buttons = '{"No", "Maybe", "OK"}' 
     //Maximum 3 buttons.
     //icon is 'note' by default.
@@ -140,7 +140,6 @@ var Dialog = module.exports = {
       title   = title ? title : 'Important';
   
     str = str.replace(/"/g, "'"); // double quotes to single quotes
-    defaultAnswer = defaultAnswer.replace(/"/g, "'"); // double quotes to single quotes
     
     cmd.push('osascript') && cmd.push('-e');
     var script = 'tell app \"System Events\" '
@@ -150,8 +149,11 @@ var Dialog = module.exports = {
       
     script += 'to display dialog \"' + str + '\"';
     
-    if(defaultAnswer || defaultAnswer.trim() != 0)
+    if(defaultAnswer)
+    {
+      defaultAnswer = defaultAnswer.replace(/"/g, "'"); // double quotes to single quotes
       script += ' default answer \"' + defaultAnswer + '\"';
+    }
     
     script += ' with title \"' + title + '\" buttons ' + buttons;
 
