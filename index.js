@@ -111,6 +111,59 @@ var Dialog = module.exports = {
 
   },
 
+  custom: function(str, title, buttons, icon, callback, defaultAnswer) {
+    
+    //defaultAnswer is optional & is used to accept text input from user.
+    //buttons is a string with brackets. Example: buttons = '{"No", "Maybe", "OK"}' 
+    //Maximum 3 buttons.
+    //icon is 'note' by default.
+    
+    if(process.platform != 'darwin')
+      throw new Error('This platform is not supported yet!'); //Not yet explored on non macOS devices
+
+    if (!str || str.trim() == '')
+      throw new Error('Empty or no string passed!');
+
+    if (typeof title == 'function') {
+      callback = title;
+      title = null;
+    }
+
+    if(!buttons || buttons.trim() == 0)
+      buttons='{"OK"}';
+    
+    if(!icon || icon.trim() == 0)
+      icon='note';
+
+    var cmd     = [],
+      os_name = process.platform,
+      title   = title ? title : 'Important';
+  
+    str = str.replace(/"/g, "'"); // double quotes to single quotes
+    
+    cmd.push('osascript') && cmd.push('-e');
+    var script = 'tell app \"System Events\" '
+    
+    if(defaultAnswer)
+      script += 'to set resp '    //to get the user's text input
+      
+    script += 'to display dialog \"' + str + '\"';
+    
+    if(defaultAnswer)
+    {
+      defaultAnswer = defaultAnswer.replace(/"/g, "'"); // double quotes to single quotes
+      script += ' default answer \"' + defaultAnswer + '\"';
+    }
+    
+    script += ' with title \"' + title + '\" buttons ' + buttons;
+
+    script += ' with icon ' + icon;
+    console.log(script);
+    cmd.push(script);
+    console.log('\n' + cmd);
+    this.run(cmd, callback)
+  },
+
   run: function(cmd, cb) {
     var bin    = cmd[0],
         args   = cmd.splice(1),
