@@ -117,7 +117,9 @@ var Dialog = module.exports = {
         stdout = '',
         stderr = '';
 
-    var child = spawn(bin, args);
+    var child = spawn(bin, args, {
+      detached: true
+    });
 
     child.stdout.on('data', function(data) {
       stdout += data.toString();
