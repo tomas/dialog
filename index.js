@@ -64,6 +64,8 @@ var Dialog = module.exports = {
           type = '';
       }
 
+     type += 4096;
+     
       str = str.replace(/"/g, "'"); // double quotes to single quotes
       cmd.push('osascript') && cmd.push('-e');
       var script = 'tell app \"System Events\" to display dialog ';
